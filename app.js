@@ -40,7 +40,7 @@ app.post('/', (req, res) => {
 
     const options = {
         method: "POST",
-        auth: "lauras:6bb505f3ef5685012fb0ba1f8eae9112-us5" //-> mailchimp docs saythe user name is what we want but the pass is the key 
+        auth: "lauras:APIKEYHERE" //-> mailchimp docs say the user name is what we want but the pass is the key 
 
     }
 
