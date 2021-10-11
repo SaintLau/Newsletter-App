@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 const https = require("https");
 const request = require("request");
 const bodyParser = require('body-parser');
@@ -45,7 +45,14 @@ app.post('/', (req, res) => {
     }
 
     const request = https.request(url, options, function(response) {
-       response.on("data", function(data) {
+       
+       if(response.statusCode === 200) {
+            res.sendFile(__dirname + "/success.html");
+       } else {
+           res.sendFile(__dirname + "/failure.html");
+       }
+
+        response.on("data", function(data) {
            console.log(JSON.parse(data));
        })
     })
@@ -53,8 +60,12 @@ app.post('/', (req, res) => {
     request.end();
 });
 
+//failure route
+app.post('/failure', (req, res) => {
+    res.redirect('/');
+})
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
     console.log(`Server listenning at ${port}`);
 });
 
